@@ -1,0 +1,24 @@
+.policy-label {
+    font-size: 1rem;
+    font-weight: 200;
+    color: #f8f9fa;
+    margin: 12px;
+}
+
+.form-label{
+    font-size: 1.4rem;
+    font-weight: 200;
+    color: #f8f9fa;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+  .form-row > .col,
+  .form-row > [class*=col-] {
+    padding-right: 5px;
+    padding-left: 5px;
+  }

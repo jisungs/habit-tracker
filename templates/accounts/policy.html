@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">리프아일랜드 이용약관 입니다.</div>
+    </div>
+</header>
+
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase"> 서비스 이용약관</h2>
+        </div>
+
+        <form  action = "{% url 'register'%}" id="contactForm">
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-12">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <!-- Message input-->
+                        <textarea disabled class="form-control" id="message" data-sb-validations="required"> 개인정보 처리방침 동의</textarea>
+                        <input class = "form-check-input" type="checkbox"  name="check1" value="check1">
+                        <label class="policy-label"> 동의함 (필수)</label><br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-12">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <!-- Message input-->
+                        <textarea disabled class="form-control" id="message" data-sb-validations="required"> 서비스 이용약관은 아래와 같습니다.</textarea>
+                        <input class = "form-check-input" type="checkbox"  name="check1" value="check1">
+                        <label class="policy-label"> 동의함 (필수)</label><br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-12">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <!-- Message input-->
+                        <textarea disabled class="form-control" id="message" data-sb-validations="required"> 개인정보처리 위탁 동의</textarea>
+                        <input class = "form-check-input" type="checkbox"  name="check1" value="check1">
+                        <label class="policy-label"> 동의함 (필수)</label><br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-12">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <!-- Message input-->
+                        <textarea disabled class="form-control" id="message" data-sb-validations="required">마케팅 정보제공 동의</textarea>
+                        <input class = "form-check-input" type="checkbox"  name="check1" value="check1">
+                        <label class="policy-label"> 동의함 (선택)</label><br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-12">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <!-- Message input-->
+                        <input class = "form-check-input" type="checkbox"  >
+                        <label class="policy-label"> 모두 동의함</label><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary btn-xl text-uppercase" type="submit" >다 음</button>
+                <!-- <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">다음</button> -->
+                <button class="btn btn-primary btn-xl text-uppercase" >취 소</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+{% endblock %}
