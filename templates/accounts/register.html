@@ -13,6 +13,7 @@
 <!-- Contact-->
 <section class="page-section" id="contact">
     <div class="container">
+        {% include 'includes/alerts.html' %}
         <div class="text-center">
             <h2 class="section-heading text-uppercase">회원가입</h2>
             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
@@ -20,6 +21,48 @@
         <form id="contactForm" action="{% url 'register'%}" method="POST">
             {% csrf_token %}
             <div class="row align-items-stretch mb-5">
+                <div class="col-md-6">
+                    
+                    <div class="form-group">
+                        <div class="form-text">
+                            <label class="form-label">이메일</label>
+                        </div>
+                        <div class="form-group">
+                            {{ form.email}}
+                        </div>
+                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-text">
+                            <label class="form-label">비밀번호</label>
+                        </div>
+                        <div class="form-group">
+                            {{ form.password}}
+                        </div>
+                        <div class="invalid-feedback" data-sb-feedback="password:required">비밀번호를 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-text">
+                            <label class="form-label">비밀번호 확인</label>
+                        </div>
+                        <div class="form-group">
+                            {{ form.confirm_password}}
+                        </div>
+                        <div class="invalid-feedback" data-sb-feedback="password:required">비밀번호를 확인해 주세요.</div>
+                    </div>
+                    
+                    <!-- <div class="form-group">
+                        <div class="form-text">
+                            <label class="form-label">핸드폰 번호</label>
+                        </div>
+                        <div class="form-group">
+                            {{ form.phone_number}}
+                        </div>
+                    </div> -->
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-text">
@@ -35,46 +78,6 @@
                             {{ form.last_name}}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-text">
-                            <label class="form-label">이메일</label>
-                        </div>
-                        <div class="form-group">
-                            {{ form.email}}
-                        </div>
-                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-text">
-                            <label class="form-label">핸드폰 번호</label>
-                        </div>
-                        <div class="form-group">
-                            {{ form.phone_number}}
-                        </div>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">A phone is required.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="form-text">
-                            <label class="form-label">비밀번호</label>
-                        </div>
-                        <div class="form-group">
-                            {{ form.password}}
-                        </div>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-text">
-                            <label class="form-label">비밀번호 확인</label>
-                        </div>
-                        <div class="form-group">
-                            {{ form.confirm_password}}
-                        </div>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                    </div>
 
 
 
@@ -89,7 +92,8 @@
                             {{ form.detail_address}}
                         </div>
                         
-                        <button class = "btn btn-primary btn-lg text-uppercase">주소찾기</button>
+                        <button class = "btn btn-primary btn-lg text-uppercase">주소찾기
+                        </button>
                     </div>
                     
                 </div>
@@ -98,6 +102,7 @@
             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
             <!-- Submit Button-->
             <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">회원가입완료</button></div>
+            
         </form>
     </div>
 </section>
