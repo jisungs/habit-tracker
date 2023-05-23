@@ -9,6 +9,16 @@
         <div class="masthead-subheading">로그인 페이지 입니다. </div>
     </div>
 </header>
+
+{% if request.GET.command == 'verification' %}
+
+<div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
+    Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
+    <br><br>
+    Already verified? <a href="{% url 'login' %}">Login</a>
+    </div>
+    
+{% else %}
  
 <div class="card mx-auto" style="max-width: 450px; margin-top:100px;">
     <div class="card-body">
@@ -39,5 +49,7 @@
 <br>
 <p class="text-center">아직 가입 안하셨나요?<a href="{% url 'policy' %}"><h6 class="text-center deactive">회원등록</h6></a></p>
 
+
+{% endif %}
 
 {% endblock %}

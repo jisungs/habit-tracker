@@ -1,0 +1,14 @@
+{% autoescape off %}
+
+안녕하세요. {{user.first_name}} {{user.last_name}} 님,
+
+저희는 일상을 성공으로 바꾸는 일을 하고 있습니다. 
+우선 회원가입을 진행해 주셔서 감사합니다. 
+
+아래의 링크를 클릭해 주시면 가입 절차가 완료 됩니다.
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+
+만약 회원가입을 진행하지 않으셨다면 이 메일을 무시하셔도 됩니다.
+
+{% endautoescape %}
