@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import Account
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def policy(request):
@@ -30,7 +31,23 @@ def register(request):
     return render(request, 'accounts/register.html', context)
 
 def login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email=email, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            # messages.success(request, '로그인이 성공했습니다.')
+            return redirect('home')
+        else:
+            messages.error(request, '로그인 정보를 찾을 수 없습니다.')
+            return redirect('login')
     return render(request, 'accounts/login.html')
 
+@login_required(login_url= 'login')
 def logout(request):
-    return 
+    auth.logout(request)
+    messages.success(request, '로그아웃을 완료 했습니다.')
+    return redirect('login')

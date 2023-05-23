@@ -54,7 +54,6 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
-
 setTimeout(function(){
   $('#message').fadeOut('slow')
 }, 4000)

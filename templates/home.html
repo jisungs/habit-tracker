@@ -7,7 +7,12 @@
 <header class="masthead">
     <div class="container">
         <div class="masthead-subheading">Welcome To Leaf island!</div>
-        <div class="masthead-heading text-uppercase">It's good day to success</div>
+
+        {% if user.id is None%}
+                <div class="masthead-heading text-uppercase">오늘의 일상을 성공으로 바꿔 보세요.</div>
+        {% else %}
+                <div class="masthead-heading text-uppercase">반갑습니다. {{user.first_name}} {{user.last_name}}님!</div>
+        {% endif %}
         <a class="btn btn-success btn-xl text-uppercase" href="{% url 'habits_list'%}">GO TO HABBIT TRACKER</a>
     </div>
 </header>
