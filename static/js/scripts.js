@@ -53,7 +53,11 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
+// alert.html control
 
-setTimeout(function(){
-  $('#message').fadeOut('slow')
-}, 4000)
+setTimeout(function() {
+    var element = document.getElementById('message');
+    element.style.transition = 'opacity 0.5s';
+    element.style.opacity = '0';
+  }, 4000);
+  

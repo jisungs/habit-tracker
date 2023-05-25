@@ -91,3 +91,8 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, '활성 코드가 잘못 되었습니다.')
         return redirect('register')
+
+
+@login_required(login_url='login')
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')
