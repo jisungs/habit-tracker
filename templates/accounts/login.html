@@ -47,7 +47,9 @@
     </div>
 </div>
 <br>
-<p class="text-center">아직 가입 안하셨나요?<a href="{% url 'policy' %}"><h6 class="text-center deactive">회원등록</h6></a></p>
+<p class="text-center">아직 가입 안하셨나요?<a href="{% url 'policy' %}"><h6 class="text-center active">회원등록</h6></a></p>
+
+<p class="text-center"><a href="{% url 'forgotPassword'%}" class="text-center">비밀번호찾기</a></p>
 
 
 {% endif %}
