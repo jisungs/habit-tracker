@@ -7,19 +7,51 @@
 <!-- Masthead-->
 <header class="masthead">
     <div class="container">
-        <div class="masthead-subheading"> 습관 리스트 </div>
+        <div class="masthead-subheading"> 일상 성공  </div>
     </div>
 </header>
 
-<section class="page-section">
+<!-- Portfolio Grid-->
+<section class="page-section bg-light" id="portfolio">
     <div class="container">
-        <ol>
-            <li>영어 습관 30일 도전</li>
-            <li>영어 습관 30일 도전</li>
-            <li>영어 습관 30일 도전</li>
-            <li>영어 습관 30일 도전</li>
-            <li>영어 습관 30일 도전</li>
-        </ol>
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">일상 성공 제공 서비스</h2>
+            <h3 class="section-subheading text-muted">현재 제공 중인 컨텐츠 입니다. 지속적으로 업그레이드 중입니다.</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 1-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal_habit_detail">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="{% static 'assets/img/portfolio/1.jpg'%}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">영어 일상 성공</div>
+                        <div class="portfolio-caption-subheading text-muted">영어 더이상 공부 하지 마세요 연습하세요.</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-4 col-sm-6">
+                <!-- Portfolio item 6-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="{% static 'assets/img/portfolio/6.jpg'%}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">준비중</div>
+                        <div class="portfolio-caption-subheading text-muted">Photography</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -16,6 +16,8 @@ from django.core.mail import EmailMessage
 
 # Create your views here.
 def policy(request):
+
+    
     return render(request, 'accounts/policy.html')
 
 def register(request):
