@@ -11,9 +11,101 @@
     </div>
 </header>
 
-<section class="page-section bg-light" id="portfolio">
-    <div class = "table-responsive container">
-    <table class="table table-bordered">
+<div class="detail-section">
+  <h1>Goal of this study</h1>
+  <label for="">This month's Goal</label>
+  <form class="form-group input-group">
+    <div class="col-lg-5 col-sm-9 col-md-5">
+      <div class="input-group mb-3">
+        <input  class ="form-control" type="text">
+        <input class="btn btn-success" type="submit">
+      </div>
+      </div>
+  </form>
+</div>
+
+<div class="detail-section">
+  <h2>Test</h2>
+
+
+</div>
+
+<div class="detail-section">
+
+  <h2>Success Calendar</h2>
+  <div class = "table-responsive">
+    <table class="table table-bordered info">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Reading</th>
+          <th scope="col">Listening</th>
+          <th scope="col">Writing</th>
+          <th scope="col">Speaking</th>
+          <th scope="col">Test</th>
+          <th scope="col">Review</th>
+          <th scope="col">Day off</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Day1</td>
+          <td>Day2</td>
+          <td>Day3</td>
+          <td>Day4</td>
+          <td>Day5</td>
+          <td>Day6</td>
+          <td>Day7</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Day8</td>
+          <td>Day9</td>
+          <td>Day10</td>
+          <td>Day11</td>
+          <td>Day12</td>
+          <td>Day13</td>
+          <td>Day14</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Day15</td>
+          <td>Day16</td>
+          <td>Day17</td>
+          <td>Day18</td>
+          <td>Day19</td>
+          <td>Day20</td>
+          <td>Day21</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Day22</td>
+          <td>Day23</td>
+          <td>Day24</td>
+          <td>Day25</td>
+          <td>Day26</td>
+          <td>Day27</td>
+          <td>Day28</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Day29</td>
+          <td class="table-success">Day30</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<!-- <section class="page-section">
+    <div class = "table-responsive">
+      <table class="table table-bordered  conatiner">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -67,18 +159,28 @@
             <td>Day1</td>
             <td>Day1</td>
           </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
       <br>
       <button class="btn btn-primary btn-xl text-uppercase">Complete</button>
     </div>
     
-</section>
+</section> -->
 
-<section class="page-section bg-light">
+
+
+<section class="detail-section bg-light">
  <h1>Daily study contents</h1>
 </section>
-<section class="page-section bg-light">
+<section class="detail-section">
     <h1> Detail</h1>
 </section>
+
+
+
+<script>
+  $(document).ready(function() {
+    $('#calendar').datepicker();
+  });
+</script>
 {% endblock %}
