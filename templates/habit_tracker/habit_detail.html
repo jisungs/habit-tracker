@@ -11,29 +11,38 @@
     </div>
 </header>
 
-<div class="detail-section">
-  <h1>Goal of this study</h1>
-  <label for="">This month's Goal</label>
-  <form class="form-group input-group">
-    <div class="col-lg-5 col-sm-9 col-md-5">
+<div class="detail-section container">
+  <h2>Goal of this study</h2>
+  {%  for goal in goals %}
+    <div class="card col-lg-6 col-sm-9 col-md-8">
+      <div class="card-body">
+        <h4>{{goal.goal}}</h4>
+        <span style="position: relative; float: right;">
+          <a class="btn btn-success"><i class="fa fa-check"></i></a>
+          <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+          <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+      </span>
+      </div>
+    </div>
+    {% endfor %}
+  
+
+  <form class="form-group input-group"  action = "{% url 'add_goal'%}" method="POST">
+    {% csrf_token %}
+    <div class="col-lg-6 col-sm-9 col-md-8">
       <div class="input-group mb-3">
-        <input  class ="form-control" type="text">
-        <input class="btn btn-success" type="submit">
+        <input  class ="form-control mt-4" name="goal" type="text" placeholder="Please Add this study's Goal" autofocus>
+        <input class="btn btn-success mt-4" type="submit"  value="Add">
       </div>
       </div>
   </form>
 </div>
 
-<div class="detail-section">
-  <h2>Test</h2>
 
-
-</div>
-
-<div class="detail-section">
+<div class="detail-section container">
 
   <h2>Success Calendar</h2>
-  <div class = "table-responsive">
+  <div class = "table-responsive mt-4">
     <table class="table table-bordered info">
       <thead>
         <tr>
@@ -103,84 +112,18 @@
   </div>
 </div>
 
-<!-- <section class="page-section">
-    <div class = "table-responsive">
-      <table class="table table-bordered  conatiner">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Mon</th>
-            <th scope="col">Tue</th>
-            <th scope="col">Wed</th>
-            <th scope="col">Thr</th>
-            <th scope="col">Fri</th>
-            <th scope="col">Sat</th>
-            <th scope="col">Sun</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-            <td>Day1</td>
-          </tr>
-          </tbody>
-        </table>
-      <br>
-      <button class="btn btn-primary btn-xl text-uppercase">Complete</button>
-    </div>
-    
-</section> -->
-
-
-
-<section class="detail-section bg-light">
+<section class="detail-section bg-light container">
  <h1>Daily study contents</h1>
+  <h2>Day 1</h2>
+  <p> Today's study is Reading</p>
+
+
+
 </section>
-<section class="detail-section">
+<section class="detail-section container">
     <h1> Detail</h1>
 </section>
 
 
 
-<script>
-  $(document).ready(function() {
-    $('#calendar').datepicker();
-  });
-</script>
 {% endblock %}
