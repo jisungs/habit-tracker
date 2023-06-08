@@ -12,6 +12,8 @@ urlpatterns = [
     # undo the goals 
     path('habit_detail/undo_goal/<int:pk>', views.undo_goal, name ='undo_goal'),
     # Edit goal
-    path('habit_detail/edit_goal/<int:pk>', views.edit_goal, name ='edit_goal'),
+    path('habit_detail/edit_goal/<int:goal_id>/', views.edit_goal, name ='edit_goal'),
+    # Delete goal
+    path('delete_goal/<int:pk>', views.delete_goal, name='delete_goal' )
 
 ]

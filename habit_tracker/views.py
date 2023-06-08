@@ -36,5 +36,20 @@ def undo_goal(request, pk):
     goal.save()
     return redirect('habit_detail')
 
-def edit_goal(request, pk):
-    return HttpResponse('Edit button is working')
+def edit_goal(request, goal_id):
+    get_goal = get_object_or_404(Goal, pk=goal_id)
+    if request.method == 'POST':
+        new_goal = request.POST['goal']
+        get_goal.goal = new_goal
+        get_goal.save()
+        return redirect('habit_detail')
+    else:
+        context = {
+            'get_goal': get_goal,
+        }
+        return render(request, 'habit_detail.html', context)
+
+def delete_goal(request, pk):
+    goal = get_object_or_404(Goal, pk=pk)
+    goal.delete()
+    return redirect('habit_detail')
