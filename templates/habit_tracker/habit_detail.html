@@ -11,7 +11,14 @@
     </div>
 </header>
 
-<div class="detail-section container ">
+<style>
+  td:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 0, 0.7);
+  }
+</style>
+
+<div class="detail-section container bg-light">
   
   <div class="row">
     <h3 class="col-md-7 col-lg-7" >Goal of this study</h3>
@@ -24,7 +31,6 @@
         <span style="position: relative; float: right;">
           <a href="{% url 'completed' goal.pk %}"class="btn btn-success"><i class="fa fa-check"></i></a>
           <a href="{% url 'delete_goal' goal.pk %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-          {% comment %} <a href="{% url 'edit_goal' goal.pk %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a> {% endcomment %}
           <a href="#goal_edit_modal" data-bs-toggle="modal" class="btn btn-primary" onclick="setGoalId('{{ goal.pk }}')"><i class="fa fa-pencil"></i></a>
         </span>
       </div>
@@ -86,48 +92,48 @@
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td>Day1</td>
-          <td>Day2</td>
-          <td>Day3</td>
-          <td>Day4</td>
-          <td>Day5</td>
-          <td>Day6</td>
-          <td>Day7</td>
+          <td class="day-cell" data-day-id="1" >Day1</td>
+          <td class="day-cell" data-day-id="2" >Day2</td>
+          <td class="day-cell" data-day-id="3" >Day3</td>
+          <td class="day-cell" data-day-id="4" >Day4</td>
+          <td class="day-cell" data-day-id="5" >Day5</td>
+          <td class="day-cell" data-day-id="6" >Day6</td>
+          <td class="day-cell" data-day-id="7" >Day7</td>
         </tr>
         <tr>
           <th scope="row">2</th>
-          <td>Day8</td>
-          <td>Day9</td>
-          <td>Day10</td>
-          <td>Day11</td>
-          <td>Day12</td>
-          <td>Day13</td>
-          <td>Day14</td>
+          <td class="day-cell" data-day-id="8" >Day8</td>
+          <td class="day-cell" data-day-id="9" >Day9</td>
+          <td class="day-cell" data-day-id="10" >Day10</td>
+          <td class="day-cell" data-day-id="11" >Day11</td>
+          <td class="day-cell" data-day-id="12" >Day12</td>
+          <td class="day-cell" data-day-id="13" >Day13</td>
+          <td class="day-cell" data-day-id="14" >Day14</td>
         </tr>
         <tr>
           <th scope="row">3</th>
-          <td>Day15</td>
-          <td>Day16</td>
-          <td>Day17</td>
-          <td>Day18</td>
-          <td>Day19</td>
-          <td>Day20</td>
-          <td>Day21</td>
+          <td class="day-cell" data-day-id="15" >Day15</td>
+          <td class="day-cell" data-day-id="16" >Day16</td>
+          <td class="day-cell" data-day-id="17" >Day17</td>
+          <td class="day-cell" data-day-id="18" >Day18</td>
+          <td class="day-cell" data-day-id="19" >Day19</td>
+          <td class="day-cell" data-day-id="20" >Day20</td>
+          <td class="day-cell" data-day-id="21" >Day21</td>
         </tr>
         <tr>
           <th scope="row">4</th>
-          <td>Day22</td>
-          <td>Day23</td>
-          <td>Day24</td>
-          <td>Day25</td>
-          <td>Day26</td>
-          <td>Day27</td>
-          <td>Day28</td>
+          <td class="day-cell" data-day-id="22" >Day22</td>
+          <td class="day-cell" data-day-id="23" >Day23</td>
+          <td class="day-cell" data-day-id="24" >Day24</td>
+          <td class="day-cell" data-day-id="25" >Day25</td>
+          <td class="day-cell" data-day-id="26" >Day26</td>
+          <td class="day-cell" data-day-id="27" >Day27</td>
+          <td class="day-cell" data-day-id="28" >Day28</td>
         </tr>
         <tr>
           <th scope="row">5</th>
-          <td>Day29</td>
-          <td class="table-success">Day30</td>
+          <td class="day-cell" data-day-id="29">Day29</td>
+          <td class="day-cell table-success" data-day-id="30" >Day30</td>
           <td></td>
           <td></td>
           <td></td>
@@ -141,8 +147,9 @@
 
 <section class="detail-section bg-light container">
  <h1>Daily study contents</h1>
-  <h2>Day 1</h2>
-  <p> Today's study is Reading</p>
+  <h2 id="title"></h2>
+  <div id="content"></div>
+
 
 
 
@@ -182,9 +189,47 @@
 
 
 <script>
+  // send goal url to view
   function setGoalId(goalId) {
     document.getElementById('edit_goal_form').action = "/habits/habit_detail/edit_goal/" + goalId + "/";
   }
+
+  //send day-id to backend and get data from there
+  $(document).ready(function() {
+    $('.day-cell').click(function() {
+      var dayId = $(this).data('day-id');
+      
+      $.ajax({
+        url: "{% url 'task' %}",  // Replace with the URL of your Django view
+        type: 'GET',
+        data: { day_id: dayId },
+        success: function(response) {
+          // Update the content div with the received data
+          $('#date_count').html(response.date_count);
+          $('#title').html(response.title);
+          $('#content').html(response.content);
+          console.log(respone.title)
+          console.log(response.content);
+        },
+        error: function(xhr) {
+          console.log(xhr.responseText);
+        }
+      });
+    });
+  });
+//  change table data color
+$(document).ready(function() {
+    // Add click event listener to all td elements
+    $('td').click(function() {
+      // Remove 'table-warning' class from all td elements
+      $('td').removeClass('table-warning');
+
+      // Add 'table-warning' class to the clicked td
+      $(this).addClass('table-warning');
+    });
+  });
+
+
 </script>
 
 {% endblock %}

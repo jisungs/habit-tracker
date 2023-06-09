@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect , get_object_or_404
 from .models import Goal
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -53,3 +54,13 @@ def delete_goal(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
     goal.delete()
     return redirect('habit_detail')
+
+def task(request):
+    day_id = request.GET.get('day_id')
+    response_data = {
+        "date_count": "DAY" + day_id,
+        "title":"Tody's study is Reading",
+        "content": "Hello again today's study is reading read the article what you like. and write your oppinion. " + day_id,
+    }
+
+    return JsonResponse(response_data)
