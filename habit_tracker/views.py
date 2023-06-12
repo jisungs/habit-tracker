@@ -1,6 +1,7 @@
 from django.http import HttpResponse
+
 from django.shortcuts import render, redirect , get_object_or_404
-from .models import Goal
+from .models import Goal, Task
 from django.http import JsonResponse
 
 # Create your views here.
@@ -57,10 +58,18 @@ def delete_goal(request, pk):
 
 def task(request):
     day_id = request.GET.get('day_id')
+
+    todays_task = Task.objects.filter(day_id=day_id).values()
+
+    parsed_data = list(todays_task)[0]
+    date_id = parsed_data['day_id']
+    subject = parsed_data['subject']
+    content = parsed_data['desc']
+
     response_data = {
-        "date_count": "DAY" + day_id,
-        "title":"Tody's study is Reading",
-        "content": "Hello again today's study is reading read the article what you like. and write your oppinion. " + day_id,
+        "date_id": "DAY " + str(date_id),
+        "title": str(subject),
+        "content": str(content),
     }
 
     return JsonResponse(response_data)

@@ -147,6 +147,7 @@
 
 <section class="detail-section bg-light container">
  <h1>Daily study contents</h1>
+ <h2 id="date_count"></h2>
   <h2 id="title"></h2>
   <div id="content"></div>
 
@@ -203,13 +204,11 @@
         url: "{% url 'task' %}",  // Replace with the URL of your Django view
         type: 'GET',
         data: { day_id: dayId },
-        success: function(response) {
+        success: function(res) {
           // Update the content div with the received data
-          $('#date_count').html(response.date_count);
-          $('#title').html(response.title);
-          $('#content').html(response.content);
-          console.log(respone.title)
-          console.log(response.content);
+          $('#date_count').html("Today is the Day " + res.date_id + " Studying day.");
+          $('#title').html(res.title);
+          $('#content').html(res.content);
         },
         error: function(xhr) {
           console.log(xhr.responseText);
