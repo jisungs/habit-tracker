@@ -1,8 +1,11 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 from django.shortcuts import render, redirect , get_object_or_404
-from .models import Goal, Task
-from django.http import JsonResponse
+from .models import Goal, Task, WorkOut
+from .forms import WorkOutForm
+
+
 
 # Create your views here.
 
@@ -10,12 +13,14 @@ def habits_list(request):
     return render(request, 'habit_tracker/habits_list.html' )
 
 def habit_detail(request):
+    form = WorkOutForm()
     goals = Goal.objects.filter(is_completed=False).order_by('-updated_at')
     
     completed_goals = Goal.objects.filter(is_completed=True)
     context = {
         'goals': goals,
         'completed_goals':completed_goals,
+        'form':form
     }
 
     return render(request, 'habit_tracker/habit_detail.html', context)
@@ -73,3 +78,21 @@ def task(request):
     }
 
     return JsonResponse(response_data)
+
+
+#Create workout content
+def create_work_out(request):
+
+    if request.method == "POST":
+        form = WorkOutForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("new workout successfully Added")
+    else:
+        form = WorkOutForm()
+        context = {
+            'form':form,
+            'test':'test_context'
+        }
+
+    return render(request, 'habit_tracker/habit_detail.html', context)

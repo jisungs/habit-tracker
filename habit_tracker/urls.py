@@ -17,5 +17,6 @@ urlpatterns = [
     path('delete_goal/<int:pk>', views.delete_goal, name='delete_goal' ),
     #Today's Task contents 
     path('today_task/', views.task, name='task'),
-
+    #Today's WorkOut content add
+    path('workout/', views.create_work_out, name="workout"),
 ]

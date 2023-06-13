@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'habit_tracker',
     'category',
     'accounts',
+    # text editor
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +148,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leafisland365@gmail.com'
 EMAIL_HOST_PASSWORD = 'qowrloguxiibnqbg'
 EMAIL_USE_TLS = True
+
+#cdeditor uploads files
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'

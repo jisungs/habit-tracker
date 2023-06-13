@@ -156,7 +156,19 @@
 
 </section>
 <section class="detail-section container">
-    <h1> Detail</h1>
+    <h1> Your Work</h1>
+    <form action="{% url 'workout'%}" class="form-group" method="POST">
+    
+      {% csrf_token %}
+      {{form.as_p}}
+      {{form.media}}
+      
+      <div class="input-group mt-3">
+        <input type="text" class="form-control" placeholder="do your work">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+      
+    </form>
 </section>
 
 
@@ -206,7 +218,7 @@
         data: { day_id: dayId },
         success: function(res) {
           // Update the content div with the received data
-          $('#date_count').html("Today is the Day " + res.date_id + " Studying day.");
+          $('#date_count').html("Today is the " + res.date_id + " Studying day.");
           $('#title').html(res.title);
           $('#content').html(res.content);
         },
@@ -230,6 +242,9 @@ $(document).ready(function() {
 
 
 </script>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
 {% endblock %}
 
