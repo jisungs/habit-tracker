@@ -153,3 +153,11 @@ EMAIL_USE_TLS = True
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_CONFIGS = {
+   'default': {
+        'toolbar': 'Basic',
+        'height': 300,
+        'width': 900,
+        'contentsCss': '/static/css/custom-ckeditor.css',
+    },
+}

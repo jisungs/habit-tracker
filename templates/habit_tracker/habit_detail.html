@@ -160,11 +160,14 @@
     <form action="{% url 'workout'%}" class="form-group" method="POST">
     
       {% csrf_token %}
-      {{form.as_p}}
-      {{form.media}}
-      
-      <div class="input-group mt-3">
-        <input type="text" class="form-control" placeholder="do your work">
+      <div class="form-row">
+        <label class="mb-2">Title</label>
+      {{form.title}}
+      </div>
+      <br>
+      {{form.content}}
+     
+      <div class="input-group mt-3">  
         <button type="submit" class="btn btn-success">Submit</button>
       </div>
       
