@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect , get_object_or_404
 from .models import Goal, Task, WorkOut
 from .forms import WorkOutForm
+from accounts.models import Account
 
 
 
@@ -13,8 +14,9 @@ def habits_list(request):
     return render(request, 'habit_tracker/habits_list.html' )
 
 def habit_detail(request):
+    current_user = request.user
     form = WorkOutForm()
-    goals = Goal.objects.filter(is_completed=False).order_by('-updated_at')
+    goals = Goal.objects.filter(is_completed=False, user=current_user).order_by('-updated_at')
     
     completed_goals = Goal.objects.filter(is_completed=True)
     context = {
@@ -27,8 +29,9 @@ def habit_detail(request):
 
 
 def add_goal(request):
+    current_user = request.user
     goal = request.POST['goal']
-    Goal.objects.create(goal=goal)
+    Goal.objects.create(goal=goal, user= current_user)
     return redirect('habit_detail')
 
 def completed(request, pk):
