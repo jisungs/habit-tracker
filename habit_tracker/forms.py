@@ -6,10 +6,9 @@ from ckeditor.widgets import CKEditorWidget
 class WorkOutForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter title of todays your work out',
                                                           'class':'form-control'
-                                                          
                                                           }))
-
     content = forms.CharField(widget=CKEditorWidget(attrs={'placeholder': 'Enter your work out here...'}))
+    
     class Meta:
         model = WorkOut
         fields = ("title", "category", "content")

@@ -88,14 +88,29 @@ def create_work_out(request):
 
     if request.method == "POST":
         form = WorkOutForm(request.POST)
+        print(form.errors)
         if form.is_valid():
-            form.save()
-            return HttpResponse("new workout successfully Added")
+            user = request.user
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            category = form.cleaned_data['category']
+            # Get a valid Task instance (replace 1 with the appropriate task ID)
+
+            workout = form.save(commit=False)
+            workout.user = user
+            workout.title = title
+            workout.content = content
+            day_id = 1  # Replace with the ID of the desired Task instance
+            task =  Task.objects.filter(day_id=day_id).first()
+            workout.task = task
+            workout.category = category
+            workout.save()
+            return redirect('habit_detail')
     else:
         form = WorkOutForm()
-        context = {
+
+    context = {
             'form':form,
-            'test':'test_context'
-        }
+    }
 
     return render(request, 'habit_tracker/habit_detail.html', context)

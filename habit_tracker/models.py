@@ -30,7 +30,7 @@ class Task(models.Model):
 
 class WorkOut(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=200)
     content = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
