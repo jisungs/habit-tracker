@@ -7,12 +7,17 @@ class WorkOutForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter title of todays your work out',
                                                           'class':'form-control'
                                                           }))
-    content = forms.CharField(widget=CKEditorWidget(attrs={'placeholder': 'Enter your work out here...'}))
+    content = forms.CharField(widget=CKEditorWidget())
+
+    def __init__(self, *args, **kwargs):
+        initial_category = 'English'  # Replace with your desired default category name
+        super().__init__(*args, **kwargs)
+        self.fields['category'].initial = initial_category
     
     class Meta:
         model = WorkOut
         fields = ("title", "category", "content")
-        exclude = ["created_ad", "updated_at"]
+        exclude = ["created_at", "updated_at"]
     
     # def __init__(self,*args, **kwargs):
     #     super(WorkOutForm, self).__init__(*args, **kwargs)

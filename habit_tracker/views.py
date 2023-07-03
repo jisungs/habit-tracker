@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.utils.html import strip_tags
 
 from django.shortcuts import render, redirect , get_object_or_404
 from .models import Goal, Task, WorkOut
@@ -15,12 +16,15 @@ def habits_list(request):
 
 def habit_detail(request):
     current_user = request.user
-    form = WorkOutForm()
+    form = WorkOutForm(initial={'category': 'English'})
+
     goals = Goal.objects.filter(is_completed=False, user=current_user).order_by('-updated_at')
+    workouts = WorkOut.objects.filter(user=current_user).order_by('-updated_at')
     
     completed_goals = Goal.objects.filter(is_completed=True)
     context = {
         'goals': goals,
+        'workouts':workouts,
         'completed_goals':completed_goals,
         'form':form
     }
@@ -88,18 +92,21 @@ def create_work_out(request):
 
     if request.method == "POST":
         form = WorkOutForm(request.POST)
+        form.initial['category'] = 'English'
         print(form.errors)
         if form.is_valid():
             user = request.user
             title = form.cleaned_data['title']
             content = form.cleaned_data['content']
             category = form.cleaned_data['category']
+            
             # Get a valid Task instance (replace 1 with the appropriate task ID)
 
             workout = form.save(commit=False)
             workout.user = user
             workout.title = title
             workout.content = content
+            
             day_id = 1  # Replace with the ID of the desired Task instance
             task =  Task.objects.filter(day_id=day_id).first()
             workout.task = task

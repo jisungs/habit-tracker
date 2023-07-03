@@ -1,5 +1,6 @@
 from django import forms 
 from .models import Account
+from ckeditor.widgets import CKEditorWidget
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={

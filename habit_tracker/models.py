@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 from accounts.models import Account
 
 # Create your models here.
+
+
 class Goal(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     goal = models.CharField(max_length=250)
@@ -28,14 +30,19 @@ class Task(models.Model):
     def __str__(self):
         return self.subject
 
+def default_category():
+    return Category.objects.get(category_name='English')
+
 class WorkOut(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=200)
     content = RichTextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=default_category )
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title
+    
+

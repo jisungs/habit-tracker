@@ -156,8 +156,7 @@ CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 CKEDITOR_CONFIGS = {
    'default': {
         'toolbar': 'Basic',
-        'height': 300,
-        'width': 900,
+        'autoParagraph': False,
         'contentsCss': '/static/css/custom-ckeditor.css',
     },
 }

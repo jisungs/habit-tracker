@@ -156,17 +156,34 @@
 
 </section>
 <section class="detail-section container">
-    <h1> Your Work</h1>
+    <h1> Your Works</h1>
+
+    {% for workout in workouts%}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ workout.title }} </h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{workout.updated_at}}</h6>
+        <p class="card-text">{{ workout.content|safe}}</p>
+        <a href="#" class="card-link">Edit</a>
+        <a href="#" class="card-link">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+
+    <br>
     <form action="{% url 'workout'%}" class="form-group" method="POST">
-    
       {% csrf_token %}
       <div class="form-row">
         <label class="mb-2">Title</label>
       {{form.title}}
       </div>
+      <!--  it need upgrade default category -->
+      <label for="">Category</label>
       {{form.category}}
       <br>
       {{form.content}}
+ 
+     
      
       <div class="input-group mt-3">  
         <button type="submit" class="btn btn-success">Submit</button>
@@ -250,6 +267,13 @@ $(document).ready(function() {
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
+<!-- <script>
+  CKEDITOR.replace('{{ form.content.id_for_label }}', {
+      customConfig: '/path/to/ckeditor_config.js',
+      toolbar: 'Custom',
+      contentsCss: ['ckeditor/ckeditor/ckeditor.js'],
+  });
+</script> -->
 {% endblock %}
 
 
