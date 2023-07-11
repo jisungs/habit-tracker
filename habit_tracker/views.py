@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect , get_object_or_404
 from .models import Goal, Task, WorkOut
 from .forms import WorkOutForm
 from accounts.models import Account
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -14,18 +15,24 @@ from accounts.models import Account
 def habits_list(request):
     return render(request, 'habit_tracker/habits_list.html' )
 
+@login_required(login_url='login')
 def habit_detail(request):
     current_user = request.user
     form = WorkOutForm(initial={'category': 'English'})
 
     goals = Goal.objects.filter(is_completed=False, user=current_user).order_by('-updated_at')
     workouts = WorkOut.objects.filter(user=current_user).order_by('-updated_at')
-    
     completed_goals = Goal.objects.filter(is_completed=True)
+
+    tasks = Task.objects.filter(is_completed = False).order_by('-updated_at')
+    today_task = tasks.first()
+    
     context = {
         'goals': goals,
-        'workouts':workouts,
         'completed_goals':completed_goals,
+        'workouts':workouts,
+        'tasks':tasks,
+        'today_task':today_task,
         'form':form
     }
 
@@ -86,7 +93,7 @@ def task(request):
 
     return JsonResponse(response_data)
 
-
+@login_required(login_url='login')
 #Create workout content
 def create_work_out(request):
 
