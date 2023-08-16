@@ -75,24 +75,13 @@
 <div class="detail-section container">
 
   <h2>Success Calendar</h2>
- 
-    <div class="container">
-      <div class="row">
-        {%for task in tasks%}
-        <div class="col">
-          <div class="cal-div">
-            Day1
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+
 
   <div class = "table-responsive mt-4">
     <table class="table table-bordered info">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          
           <th scope="col">Reading</th>
           <th scope="col">Listening</th>
           <th scope="col">Writing</th>
@@ -104,54 +93,14 @@
       </thead>
       <tbody>
         <tr>
-          <th scope="row">1</th>
-          <td class="day-cell" data-day-id="1" >Day1</td>
-          <td class="day-cell" data-day-id="2" >Day2</td>
-          <td class="day-cell" data-day-id="3" >Day3</td>
-          <td class="day-cell" data-day-id="4" >Day4</td>
-          <td class="day-cell" data-day-id="5" >Day5</td>
-          <td class="day-cell" data-day-id="6" >Day6</td>
-          <td class="day-cell" data-day-id="7" >Day7</td>
+          {% for task in tasks %}
+            {% if forloop.counter0|divisibleby:7 %}
+            </tr><tr> 
+            {% endif %}
+            <td class="day-cell {% if task.is_completed %}table-success{% endif %}" data-day-id="{{forloop.counter}}" >{{forloop.counter}} Day {% if task.is_completed %}completed{% endif %}</td>
+          {% endfor %}
+
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td class="day-cell" data-day-id="8" >Day8</td>
-          <td class="day-cell" data-day-id="9" >Day9</td>
-          <td class="day-cell" data-day-id="10" >Day10</td>
-          <td class="day-cell" data-day-id="11" >Day11</td>
-          <td class="day-cell" data-day-id="12" >Day12</td>
-          <td class="day-cell" data-day-id="13" >Day13</td>
-          <td class="day-cell" data-day-id="14" >Day14</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td class="day-cell" data-day-id="15" >Day15</td>
-          <td class="day-cell" data-day-id="16" >Day16</td>
-          <td class="day-cell" data-day-id="17" >Day17</td>
-          <td class="day-cell" data-day-id="18" >Day18</td>
-          <td class="day-cell" data-day-id="19" >Day19</td>
-          <td class="day-cell" data-day-id="20" >Day20</td>
-          <td class="day-cell" data-day-id="21" >Day21</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td class="day-cell" data-day-id="22" >Day22</td>
-          <td class="day-cell" data-day-id="23" >Day23</td>
-          <td class="day-cell" data-day-id="24" >Day24</td>
-          <td class="day-cell" data-day-id="25" >Day25</td>
-          <td class="day-cell" data-day-id="26" >Day26</td>
-          <td class="day-cell" data-day-id="27" >Day27</td>
-          <td class="day-cell" data-day-id="28" >Day28</td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td class="day-cell" data-day-id="29">Day29</td>
-          <td class="day-cell table-success" data-day-id="30" >Day30</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
         </tr>
         </tbody>
       </table>
@@ -161,8 +110,8 @@
 <section class="detail-section bg-light container">
  <h1>Daily study contents</h1>
  <h2 id="date_count"></h2>
- 
-  <h2 id="title">{{today_task.subject}}</h2>
+
+  <h2 id="title">{{ today_task.subject}}</h2>
   <div id="content">{{today_task.desc}}</div>
   
   <!-- <p>{{today_task.subject}}</p>
@@ -239,15 +188,15 @@
 
 <script>
   //cal-div resize function
-  const calDiv = document.querySelector('.cal-div');
+  // const calDiv = document.querySelector('.cal-div');
 
-  calDiv.addEventListener('mouseenter', () => {
-    calDiv.style.transform = 'scale(1.2)';
-  });
+  // calDiv.addEventListener('mouseenter', () => {
+  //   calDiv.style.transform = 'scale(1.2)';
+  // });
 
-  calDiv.addEventListener('mouseleave', () => {
-    calDiv.style.transform = 'scale(1)';
-  });
+  // calDiv.addEventListener('mouseleave', () => {
+  //   calDiv.style.transform = 'scale(1)';
+  // });
 
 
   // send goal url to view

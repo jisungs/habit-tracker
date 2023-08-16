@@ -11325,7 +11325,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 /* calendar div */
 
 
-.cal-div {
+/* .cal-div {
   width: 50px;
   height: 50px;
   background-color: yellowgreen;
@@ -11335,7 +11335,7 @@ section#contact form#contactForm :-ms-input-placeholder {
   padding:10px;
   margin:0;
   /* Adding a smooth transition effect */
-}
+/* } */
 
 .cal-div:hover {
   width: 80px;

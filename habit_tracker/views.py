@@ -24,8 +24,8 @@ def habit_detail(request):
     workouts = WorkOut.objects.filter(user=current_user).order_by('-updated_at')
     completed_goals = Goal.objects.filter(is_completed=True)
 
-    tasks = Task.objects.filter(is_completed = False).order_by('-updated_at')
-    today_task = tasks.first()
+    tasks = Task.objects.all().order_by('day_id')
+    today_task = Task.objects.filter(is_completed = False).order_by('day_id').first()
     
     context = {
         'goals': goals,
