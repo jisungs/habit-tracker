@@ -20,7 +20,7 @@
 
 <div class="detail-section container bg-light">
   
-  <div class="row">
+  <div class="row cal-row">
     <h3 class="col-md-7 col-lg-7" >Goal of this study</h3>
     
     <div class="col-md-7 col-lg-7">
@@ -75,6 +75,19 @@
 <div class="detail-section container">
 
   <h2>Success Calendar</h2>
+ 
+    <div class="container">
+      <div class="row">
+        {%for task in tasks%}
+        <div class="col">
+          <div class="cal-div">
+            Day1
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
   <div class = "table-responsive mt-4">
     <table class="table table-bordered info">
       <thead>
@@ -225,6 +238,18 @@
 
 
 <script>
+  //cal-div resize function
+  const calDiv = document.querySelector('.cal-div');
+
+  calDiv.addEventListener('mouseenter', () => {
+    calDiv.style.transform = 'scale(1.2)';
+  });
+
+  calDiv.addEventListener('mouseleave', () => {
+    calDiv.style.transform = 'scale(1)';
+  });
+
+
   // send goal url to view
   function setGoalId(goalId) {
     document.getElementById('edit_goal_form').action = "/habits/habit_detail/edit_goal/" + goalId + "/";
