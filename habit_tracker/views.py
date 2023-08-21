@@ -27,6 +27,7 @@ def habit_detail(request):
     tasks = Task.objects.all().order_by('day_id')
     today_task = Task.objects.filter(is_completed = False).order_by('day_id').first()
     
+
     context = {
         'goals': goals,
         'completed_goals':completed_goals,
@@ -34,6 +35,7 @@ def habit_detail(request):
         'tasks':tasks,
         'today_task':today_task,
         'form':form
+
     }
 
     return render(request, 'habit_tracker/habit_detail.html', context)
@@ -128,3 +130,28 @@ def create_work_out(request):
     }
 
     return render(request, 'habit_tracker/habit_detail.html', context)
+
+def get_workout(request):
+    if request.method == "GET":
+        day_id = request.GET.get('day_id')
+        try:
+            task  = Task.objects.get(day_id=day_id)
+            workout = task.workout_set.first()
+
+            if workout: 
+                response_data = {
+                    'date_id':day_id,
+                    'title':workout.title,
+                    'content':workout.content,
+                    'updated_date':workout.updated_at,
+                }
+            else:
+                response_data = {
+                    'date_id': day_id,
+                    'title': "No Workout Available",
+                    'content': "Start your workout routine!",
+                }
+
+            return JsonResponse(response_data)
+        except Task.DoesNotExist:
+            return JsonResponse({'error': 'Task not found'}, status=404)

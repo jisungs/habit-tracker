@@ -79,31 +79,21 @@
 
   <div class = "table-responsive mt-4">
     <table class="table table-bordered info">
-      <thead>
-        <tr>
-          
-          <th scope="col">Reading</th>
-          <th scope="col">Listening</th>
-          <th scope="col">Writing</th>
-          <th scope="col">Speaking</th>
-          <th scope="col">Test</th>
-          <th scope="col">Review</th>
-          <th scope="col">Day off</th>
-        </tr>
-      </thead>
       <tbody>
         <tr>
           {% for task in tasks %}
             {% if forloop.counter0|divisibleby:7 %}
             </tr><tr> 
             {% endif %}
-            <td class="day-cell {% if task.is_completed %}table-success{% endif %}" data-day-id="{{forloop.counter}}" >{{forloop.counter}} Day {% if task.is_completed %}completed{% endif %}</td>
+            <td class="day-cell {% if task.is_completed %}table-success{% endif %}" data-day-id="{{forloop.counter}}" >
+              {{forloop.counter}} Day
+              <p>{% if task.is_completed %}completed{% endif %}</p>
+           </td>
           {% endfor %}
 
         </tr>
-        </tr>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -119,36 +109,39 @@
  
 
 </section>
-<section class="detail-section container">
+<section class="detail-section container" >
     <h1> Your Works</h1>
-
+    <div id="workout-cards-container">
     {% for workout in workouts%}
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">{{ workout.title }} </h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{workout.updated_at}}</h6>
-        <p class="card-text">{{ workout.content|safe}}</p>
+        <h5 class="card-title" id="workout-title">{{ workout.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted" id="workout-updated-date">{{workout.updated_at}}</h6>
+        <p class="card-text" id = "workout-content">{{ workout.content|safe}}</p>
         <a href="#" class="card-link">Edit</a>
         <a href="#" class="card-link">Delete</a>
       </div>
     </div>
     {% endfor %}
+  </div>
 
     <br>
     <form action="{% url 'workout'%}" class="form-group" method="POST">
       {% csrf_token %}
-      <div class="form-row">
-        <label class="mb-2">Title</label>
-      {{form.title}}
-      </div>
-      <!--  it need upgrade default category -->
-      <label for="">Category</label>
-      {{form.category}}
-      <br>
-      {{form.content}}
- 
      
-     
+        <div>
+          <label for="">Category</label>
+          {{form.category}}
+        </div>
+        <div>
+          <label class="mb-2">Title</label>
+          {{form.title}}
+        </div>
+        <!--  it need upgrade default category -->  
+        <p>
+        <label class="mb-2">Content</label>
+        {{form.content}}
+        </p>
       <div class="input-group mt-3">  
         <button type="submit" class="btn btn-success">Submit</button>
       </div>
@@ -208,23 +201,87 @@
   $(document).ready(function() {
     $('.day-cell').click(function() {
       var dayId = $(this).data('day-id');
-      
-      $.ajax({
+
+      clearWorkoutCards();
+
+      fetchTaskData(dayId);
+      fetchWorkoutData(dayId);
+    });
+  });
+
+function fetchTaskData(dayId){
+    $.ajax({
         url: "{% url 'task' %}",  // Replace with the URL of your Django view
         type: 'GET',
         data: { day_id: dayId },
-        success: function(res) {
+        success: function(taskRes) {
           // Update the content div with the received data
-          $('#date_count').html("Today is the " + res.date_id + " Studying day.");
-          $('#title').html(res.title);
-          $('#content').html(res.content);
+          $('#date_count').html("Today is the " + taskRes.date_id + " Studying day.");
+          $('#title').html(taskRes.title);
+          $('#content').html(taskRes.content);
         },
-        error: function(xhr) {
-          console.log(xhr.responseText);
+        error: function(taskXhr) {
+          console.log(taskXhr.responseText);
         }
       });
-    });
+  }// end of fetchTaskData function
+
+function fetchWorkoutData(dayId){
+  $.ajax({
+    url:"{% url 'get_workout' %}",
+    type:"GET",
+    data:{ day_id : dayId},
+    success: function(workoutRes){
+      var workoutCardHtml=`
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">${workoutRes.title}</h5>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text">${workoutRes.content}</p>
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+          </div>
+        </div>
+      `;
+
+      if (workoutRes.title && workoutRes.content){
+        var workoutCardHtml=`
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">${workoutRes.title}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${workoutRes.updated_date}<h6>
+            <p class="card-text">${workoutRes.content}</p>
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+          </div>
+        </div>
+      `;
+      $('#workout-cards-container').append(workoutCardHtml);
+      } else {
+        var workoutCardHtml=`
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">No WorkOut Available</h5>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text">Start your workout routine!</p>
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+          </div>
+        </div>
+      `;
+      $('#workout-cards-container').append(workoutCardHtml);
+      }
+    },
+    error: function(workoutXhr){
+      console.log(workoutXhr.responseText);
+    }
   });
+}// end of fetchWorkoutData function
+
+//clear card function
+function clearWorkoutCards(){
+  $('#workout-cards-container').empty();
+}
 
 //  change table data color
 $(document).ready(function() {
