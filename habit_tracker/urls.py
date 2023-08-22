@@ -21,4 +21,6 @@ urlpatterns = [
     path('workout/', views.create_work_out, name="workout"),
     #Todya's Task related workout call
     path('get_workout/', views.get_workout, name = 'get_workout'),
+    #Set clicked day id to all python variable
+    path('set_day_id/',views.set_day_id, name="set_day_id"),
 ]

@@ -11,12 +11,25 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+DAY_ID = 0
+
+def set_day_id(request):
+    global DAY_ID
+    day_id = request.GET.get('day_id')
+    DAY_ID = day_id
+    print(DAY_ID)
+    response_data = {
+        "date_id": DAY_ID
+    }
+    return JsonResponse(response_data)
+    
 
 def habits_list(request):
     return render(request, 'habit_tracker/habits_list.html' )
 
 @login_required(login_url='login')
 def habit_detail(request):
+    global DAY_ID
     current_user = request.user
     form = WorkOutForm(initial={'category': 'English'})
 
@@ -34,6 +47,7 @@ def habit_detail(request):
         'workouts':workouts,
         'tasks':tasks,
         'today_task':today_task,
+        'day_id':DAY_ID,
         'form':form
 
     }
@@ -98,11 +112,17 @@ def task(request):
 @login_required(login_url='login')
 #Create workout content
 def create_work_out(request):
+    global DAY_ID
+    today_task = Task.objects.filter(is_completed = False).order_by('day_id').first()
+    if DAY_ID == 0:  
+        day_id = today_task.day_id
+    else: 
+        day_id = DAY_ID
 
     if request.method == "POST":
         form = WorkOutForm(request.POST)
         form.initial['category'] = 'English'
-        print(form.errors)
+        # print(form.errors)
         if form.is_valid():
             user = request.user
             title = form.cleaned_data['title']
@@ -113,14 +133,18 @@ def create_work_out(request):
 
             workout = form.save(commit=False)
             workout.user = user
+            workout.category = category
             workout.title = title
             workout.content = content
             
-            day_id = 1  # Replace with the ID of the desired Task instance
+            day_id = day_id  # Replace with the ID of the desired Task instance
             task =  Task.objects.filter(day_id=day_id).first()
+            task.is_completed = True
             workout.task = task
             workout.category = category
             workout.save()
+            task.save()
+            DAY_ID=0
             return redirect('habit_detail')
     else:
         form = WorkOutForm()

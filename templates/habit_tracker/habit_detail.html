@@ -75,9 +75,8 @@
 <div class="detail-section container">
 
   <h2>Success Calendar</h2>
-
-
-  <div class = "table-responsive mt-4">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseExample">Toggle Table</button>
+  <div id="collapseTable" class = "collapse show table-responsive mt-4">
     <table class="table table-bordered info">
       <tbody>
         <tr>
@@ -85,7 +84,7 @@
             {% if forloop.counter0|divisibleby:7 %}
             </tr><tr> 
             {% endif %}
-            <td class="day-cell {% if task.is_completed %}table-success{% endif %}" data-day-id="{{forloop.counter}}" >
+            <td class="day-cell {% if task.is_completed %}table-success{% endif %} {%if task == today_task%}table-warning{%endif%}" data-day-id="{{forloop.counter}}" >
               {{forloop.counter}} Day
               <p>{% if task.is_completed %}completed{% endif %}</p>
            </td>
@@ -97,12 +96,14 @@
   </div>
 </div>
 
+
 <section class="detail-section bg-light container">
  <h1>Daily study contents</h1>
  <h2 id="date_count"></h2>
 
   <h2 id="title">{{ today_task.subject}}</h2>
   <div id="content">{{today_task.desc}}</div>
+  <div id="content">{{day_id}}</div>
   
   <!-- <p>{{today_task.subject}}</p>
   <p>{{today_task.desc}}</p> -->
@@ -112,18 +113,19 @@
 <section class="detail-section container" >
     <h1> Your Works</h1>
     <div id="workout-cards-container">
-    {% for workout in workouts%}
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title" id="workout-title">{{ workout.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted" id="workout-updated-date">{{workout.updated_at}}</h6>
-        <p class="card-text" id = "workout-content">{{ workout.content|safe}}</p>
-        <a href="#" class="card-link">Edit</a>
-        <a href="#" class="card-link">Delete</a>
+      {% for workout in workouts|slice:":3"%}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title" id="workout-title">{{ workout.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted" id="workout-updated-date">{{workout.updated_at}}</h6>
+          <p class="card-text" id = "workout-content">{{ workout.content|safe}}</p>
+          <a href="#" class="card-link">Edit</a>
+          <a href="#" class="card-link">Delete</a>
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
+
 
     <br>
     <form action="{% url 'workout'%}" class="form-group" method="POST">
@@ -180,17 +182,6 @@
 
 
 <script>
-  //cal-div resize function
-  // const calDiv = document.querySelector('.cal-div');
-
-  // calDiv.addEventListener('mouseenter', () => {
-  //   calDiv.style.transform = 'scale(1.2)';
-  // });
-
-  // calDiv.addEventListener('mouseleave', () => {
-  //   calDiv.style.transform = 'scale(1)';
-  // });
-
 
   // send goal url to view
   function setGoalId(goalId) {
@@ -206,6 +197,23 @@
 
       fetchTaskData(dayId);
       fetchWorkoutData(dayId);
+
+      $.ajax({
+        url:"{% url 'set_day_id' %}",
+        type:'GET',
+        data:{
+          'day_id':dayId,
+        },
+        success: function(response){
+           // Handle the success response if needed
+          console.log('Data sent to Django view successfully.');
+        },
+        error: function(xhr){
+          // Handle errors if needed
+        console.log('Error sending data to Django view.');
+        }
+      });
+      
     });
   });
 
@@ -227,6 +235,8 @@ function fetchTaskData(dayId){
   }// end of fetchTaskData function
 
 function fetchWorkoutData(dayId){
+
+
   $.ajax({
     url:"{% url 'get_workout' %}",
     type:"GET",
@@ -287,6 +297,7 @@ function clearWorkoutCards(){
 $(document).ready(function() {
     // Add click event listener to all td elements
     $('td').click(function() {
+      
       // Remove 'table-warning' class from all td elements
       $('td').removeClass('table-warning');
 
@@ -295,23 +306,12 @@ $(document).ready(function() {
     });
   });
 
-
-  document.addEventListener('DOMContentLoaded', function(){
-
-  });
-
 </script>
 
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
-<!-- <script>
-  CKEDITOR.replace('{{ form.content.id_for_label }}', {
-      customConfig: '/path/to/ckeditor_config.js',
-      toolbar: 'Custom',
-      contentsCss: ['ckeditor/ckeditor/ckeditor.js'],
-  });
-</script> -->
+
 {% endblock %}
 
 
