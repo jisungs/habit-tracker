@@ -11,7 +11,6 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip
 RUN pip install setuptools
-RUN pip install gunicorn
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt

@@ -1,0 +1,22 @@
+body {
+    font-size: 20px;
+}
+
+.ckeditor-toolbar {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    padding: 5px;
+  }
+  /* Custom CKEditor toolbar button style */
+.cke_button {
+    margin-right: 4px;
+  }
+
+  /* Custom CKEditor content area style */
+.cke_contents {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 10px;
+  }
